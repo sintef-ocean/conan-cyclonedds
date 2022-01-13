@@ -45,7 +45,7 @@ The package is usually consumed using the `conan install` command or a *conanfil
    # idlc_generate function to create from idl is available
 
    add_executable(the_executor code.cpp)
-   target_link_libraries(the_executor CycloneDDS::CycloneDDS)
+   target_link_libraries(the_executor CycloneDDS::ddsc)
    ```
    Then, do
    ```bash
@@ -80,8 +80,8 @@ with_freertos | [True, False] | False
 with_lwip | [True, False] | False
 with_analyzer | [True, False, "clang-tidy"] | False
 with_coverage | [True, False] | False
-with_sanitizer | [True, False] | False
-with_werror | [True, False] | False
+with_sanitizer | ANY | ""
+with_werror | [True, False] | True
 
 ## Known recipe issues
 

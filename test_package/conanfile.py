@@ -22,7 +22,6 @@ class cycloneddsTestConan(ConanFile):
             cmake = self._configure_cmake()
             cmake.build()
 
-
     def test(self):
         if tools.cross_building(self.settings):
             print("NOT RUN (cross-building)")

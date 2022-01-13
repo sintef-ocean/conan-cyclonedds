@@ -21,6 +21,7 @@ jobs:
         compiler_version: ['12.0']
         build_type: [Debug, Release]
         os: [macos-latest]
+        version: [0.8.2]
     steps:
       - uses: actions/checkout@v2
       - name: Install prerequisites
@@ -36,7 +37,7 @@ jobs:
             -s compiler=apple-clang \
             -s compiler.version=${{ matrix.compiler_version }} \
             -s compiler.libcxx=libc++ \
-            -b missing -b outdated . sintef/stable
+            -b missing -b outdated . ${{ matrix.version }}@sintef/stable
       - name: Conan upload
         run: |
           conan upload --all -c -r sintef ${SINTEF_REFERENCE} --retry 5 --retry-wait 20 --force

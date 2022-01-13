@@ -9,7 +9,6 @@ required_conan_version = ">=1.33.0"
 
 
 class cycloneddsConan(ConanFile):
-    version = "0.8.2"
     name = "cyclonedds"
     license = "EPL-2.0, EDL-1.0"
     author = "SINTEF Ocean"
@@ -42,7 +41,7 @@ class cycloneddsConan(ConanFile):
         "with_lwip": [True, False],
         "with_analyzer": [True, False, "clang-tidy"],
         "with_coverage": [True, False],
-        "with_sanitizer": [True, False],
+        "with_sanitizer": "ANY",
         "with_werror": [True, False]
 
     }
@@ -68,7 +67,7 @@ class cycloneddsConan(ConanFile):
         "with_lwip": False,
         "with_analyzer": False,
         "with_coverage": False,
-        "with_sanitizer": False,
+        "with_sanitizer": "",
         "with_werror": True
 
     }
@@ -183,8 +182,7 @@ class cycloneddsConan(ConanFile):
         self._create_cmake_module_alias_targets(
             os.path.join(self.package_folder, self._module_file_rel_path),
             {v["target"]: v["type"]
-             for k, v in self._cyclonedds_components.items()}
-        )
+             for k, v in self._cyclonedds_components.items()})
 
     @property
     def _cyclonedds_components(self):
@@ -205,7 +203,7 @@ class cycloneddsConan(ConanFile):
 
         def shm():
             return ['SHM_SUPPORT_IS_AVAILABLE'] if self.options.with_shm and \
-                self.settings.os in ["Linux", "FreeBSD"] else []
+                self.settings.os in ["Linux", "FreeBSD", "Macos"] else []
 
         return {
             "ddsc": {
@@ -264,7 +262,9 @@ class cycloneddsConan(ConanFile):
         if(_MYIMPORT_PREFIX STREQUAL "/")
           set(_MYIMPORT_PREFIX "")
         endif()
+        set(CYCLONEDDS_MODULE ON) # To help cxx bindings cmake logic
         """)
+
         for target, libexe in targets.items():
             if libexe != 'library':
                 content += textwrap.dedent("""\
@@ -334,7 +334,7 @@ class cycloneddsConan(ConanFile):
                         "lib/cmake/CycloneDDS/idlc/Generate.cmake")
                     self.cpp_info.components[cmake_lib_name].build_modules["cmake_find_package_multi"].append(
                         "lib/cmake/CycloneDDS/idlc/Generate.cmake")
-                self.output.warn(self.cpp_info.components[cmake_lib_name])
+
         _register_components(self._cyclonedds_components)
 
         self.output.info("Appending environment PATH for binaries of {}"

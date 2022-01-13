@@ -25,6 +25,7 @@ jobs:
         compiler_toolset: [v142, v143]
         build_type: [Debug, Release]
         os: [windows-2022]
+        version: [0.8.2]
     steps:
       - uses: actions/checkout@v2
       - name: Install prerequisites
@@ -39,7 +40,7 @@ jobs:
             -s compiler.version=${{ matrix.compiler_version }} `
             -s compiler.toolset=${{ matrix.compiler_toolset }} `
             -s compiler="Visual Studio" `
-            -b missing -b outdated . sintef/stable
+            -b missing -b outdated . ${{ matrix.version }}@sintef/stable
       - name: Conan upload
         run: |
           conan upload --all -c -r sintef ${env:SINTEF_REFERENCE} --retry 5 --retry-wait 20 --force
