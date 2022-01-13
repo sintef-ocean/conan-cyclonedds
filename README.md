@@ -57,9 +57,32 @@ The package is usually consumed using the `conan install` command or a *conanfil
 
 ## Package options
 
-Option | Default | Domain
+Option | Values | Default
 ---|---|---
+shared | [True, False] | True
+with_tls | [True, False] | True
+with_shm | [True, False] | True
+with_deadline_missed | [True, False] | True
+with_lifespan | [True, False] | True
+with_network_partitions | [True, False] | True
+with_security | [True, False] | True
+with_source_specific_multicast | [True, False] | True
+with_topic_discovery | [True, False] | False
+with_type_discovery | [True, False] | False
+with_doc | [True, False] | False
+with_examples | [True, False] | False
+with_tests | [True, False] | False
+with_ddsconf | [True, False] | True
+with_idlc | [True, False] | True
+with_schema | [True, False] | True
+with_dns | [True, False] | True
+with_freertos | [True, False] | False
+with_lwip | [True, False] | False
+with_analyzer | [True, False, "clang-tidy"] | False
+with_coverage | [True, False] | False
+with_sanitizer | [True, False] | False
+with_werror | [True, False] | False
 
 ## Known recipe issues
 
-(Add known issues/shortcomings here)
+Several invalid combinations are not handled by the recipe and will fail

@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         compiler_version: [17]
-        compiler_toolset: [v141, v142, v143]
+        compiler_toolset: [v142, v143]
         build_type: [Debug, Release]
         os: [windows-2022]
     steps:
