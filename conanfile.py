@@ -88,8 +88,8 @@ class cycloneddsConan(ConanFile):
 
     def build_requirements(self):
         _deps = self.conan_data["dependencies"][self.version]
-        if tools.os_info.is_macos():
-            self.output.warn("USe system-installed bison")
+        if tools.os_info.is_macos:
+            self.output.warn("Use system-installed bison")
         else:
             self.build_requires("bison/{}".format(_deps["bison"]))
         if self.options.with_doc:
