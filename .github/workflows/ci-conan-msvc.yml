@@ -41,6 +41,7 @@ jobs:
             -s compiler.version=${{ matrix.compiler_version }} `
             -s compiler.toolset=${{ matrix.compiler_toolset }} `
             -s compiler="Visual Studio" `
+            -o cyclonedds:with_shm=False `
             -b missing -b outdated . ${{ matrix.version }}@sintef/stable
       - name: Conan upload
         run: |
