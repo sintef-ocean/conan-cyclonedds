@@ -23,7 +23,7 @@ jobs:
       matrix:
         compiler_version: [17]
         compiler_toolset: [v142, v143]
-        build_type: [RelWithDebInfo, Release]
+        build_type: [Debug, Release]
         os: [windows-2022]
         version: [0.8.2]
     steps:
@@ -32,11 +32,12 @@ jobs:
         run: |
           pip3 install --upgrade setuptools pip requests
           pip3 install --upgrade conan
+          choco install -y winflexbison3
       - name: Configure Conan
         run: conan remote add sintef ${env:CONAN_UPLOAD} --insert 0
       - name: Conan create
         run: |
-          conan create -s cyclonedds:build_type=${{ matrix.build_type }} `
+          conan create -s build_type=${{ matrix.build_type }} `
             -s compiler.version=${{ matrix.compiler_version }} `
             -s compiler.toolset=${{ matrix.compiler_toolset }} `
             -s compiler="Visual Studio" `

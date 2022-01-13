@@ -89,4 +89,5 @@ with_werror | [True, False] | True
  - conan-center bison does not seem to provide `bison_target`, bison may need to be
    installed system-wide instead.
  - RPATH is not stripped from the libraries. Should they be?
- - Building the library for `build_type=Debug` with MSVC fails.
+ - `build_type=Debug` fails with MSVC unless a system-installed bison is used instead of
+   conan-center: `choco install -y winflexbison3`
