@@ -172,8 +172,6 @@ class cycloneddsConan(ConanFile):
         cmake = self._configure_cmake()
         cmake.build()
 
-        # TODO: Should ORIGIN be stripped from libraries?
-
         if self.options.with_tests:
             cmake.test()
 

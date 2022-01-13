@@ -85,4 +85,8 @@ with_werror | [True, False] | True
 
 ## Known recipe issues
 
-Several invalid combinations are not handled by the recipe and will fail
+ - Several invalid combinations are not handled by the recipe and will fail
+ - conan-center bison does not seem to provide `bison_target`, bison may need to be
+   installed system-wide instead.
+ - RPATH is not stripped from the libraries. Should they be?
+ - Building the library for `build_type=Debug` with MSVC fails.
