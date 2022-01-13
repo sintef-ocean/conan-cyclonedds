@@ -18,9 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler_version: ['12.0']
+        compiler_version: ['13.0']
         build_type: [Debug, Release]
-        os: [macos-latest]
+        os: [macos-11]
         version: [0.8.2]
     steps:
       - uses: actions/checkout@v2
@@ -28,10 +28,12 @@ jobs:
         run: |
           pip3 install --upgrade setuptools pip requests
           pip3 install --upgrade conan
+          brew install bison
       - name: Configure Conan
         run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
         run: |
+          export PATH="$(brew --prefix bison)/bin:$PATH"
           conan create \
             -s build_type=${{ matrix.build_type }} \
             -s compiler=apple-clang \
