@@ -1,0 +1,47 @@
+diff --git a/PackageConfig.cmake.in b/PackageConfig.cmake.in
+index f47615a7..daf84bd9 100644
+--- a/PackageConfig.cmake.in
++++ b/PackageConfig.cmake.in
+@@ -13,7 +13,7 @@
+ 
+ if(@CYCLONE_BUILD_WITH_ICEORYX@)
+   include(CMakeFindDependencyMacro)
+-  find_dependency(iceoryx_binding_c)
++  find_dependency(iceoryx)
+ endif()
+ 
+ include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+diff --git a/cmake/Modules/Generate.cmake b/cmake/Modules/Generate.cmake
+index c5c0d678..42cf6648 100644
+--- a/cmake/Modules/Generate.cmake
++++ b/cmake/Modules/Generate.cmake
+@@ -26,8 +26,14 @@ function(IDLC_GENERATE)
+       message(FATAL_ERROR "Cannot find idlc executable")
+     endif()
+   else()
++    get_target_property(_is_imported CycloneDDS::idlc IMPORTED)
++    if(_is_imported)
++      get_target_property(_idlc_executable CycloneDDS::idlc LOCATION)
++      set(_idlc_depends "")
++    else()
+     set(_idlc_executable CycloneDDS::idlc)
+     set(_idlc_depends CycloneDDS::idlc)
++    endif()
+   endif()
+ 
+   if(NOT IDLC_TARGET AND NOT IDLC_FILES)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 8db6177c..b113b077 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -68,7 +68,9 @@ option(CYCLONE_BUILD_WITH_ICEORYX "iceoryx not found by default" OFF)
+ if(ENABLE_SHM)
+   if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Darwin OR CMAKE_SYSTEM_NAME MATCHES QNX)
+     message(STATUS "Linux/MacOS/QNX system found, trying to find iceoryx...")
+-    find_package(iceoryx_binding_c QUIET)
++    include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
++    find_package(iceoryx MODULE REQUIRED)
++    set(iceoryx_binding_c_FOUND TRUE)
+     if(iceoryx_binding_c_FOUND)
+       set(CYCLONE_BUILD_WITH_ICEORYX TRUE CACHE BOOL "Iceoryx found!" FORCE)
+       set(DDS_HAS_SHM "1")
