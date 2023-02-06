@@ -54,8 +54,8 @@ class cycloneddsConan(ConanFile):
         "with_network_partitions": True,
         "with_security": True,
         "with_source_specific_multicast": True,
-        "with_topic_discovery": False,
-        "with_type_discovery": False,
+        "with_topic_discovery": True,
+        "with_type_discovery": True,
         "with_doc": False,
         "with_examples": False,
         "with_tests": False,
@@ -203,9 +203,23 @@ class cycloneddsConan(ConanFile):
         def tls():
             return ['openssl::openssl'] if self.options.with_tls else []
 
-        def shm():
-            return ['SHM_SUPPORT_IS_AVAILABLE'] if self.options.with_shm and \
-                self.settings.os in ["Linux", "FreeBSD", "Macos"] else []
+        def dds_defs():
+            platforms = ["Linux", "FreeBSD", "Macos"]
+            if tools.Version(self.version) >= "1.0.0":  # Not yet supported?
+                platforms.append("Windows")
+
+            defs = []
+
+            if self.options.with_shm and self.settings.os in platforms:
+                defs.append("SHM_SUPPORT_IS_AVAILABLE")
+
+            if self.options.with_topic_discovery:
+                defs.append("TOPIC_DISCOVERY_IS_AVAILABLE")
+
+            if self.options.with_type_discovery:
+                defs.append("TYPE_DISCOVERY_IS_AVAILABLE")
+
+            return defs
 
         return {
             "ddsc": {
@@ -214,7 +228,7 @@ class cycloneddsConan(ConanFile):
                 "lib_names": ['ddsc'],
                 "system_libs": pthread() + rt() + dl(),
                 "requires": iceoryx() + tls(),
-                "defines": shm(),
+                "defines": dds_defs(),
                 "includedirs": ["include"],
             },
             "idl": {
