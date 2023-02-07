@@ -1,7 +1,7 @@
 [![GCC Conan](https://github.com/sintef-ocean/conan-cyclonedds/workflows/GCC%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-cyclonedds/actions?query=workflow%3A"GCC+Conan")
 [![Clang Conan](https://github.com/sintef-ocean/conan-cyclonedds/workflows/Clang%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-cyclonedds/actions?query=workflow%3A"Clang+Conan")
 [![MSVC Conan](https://github.com/sintef-ocean/conan-cyclonedds/workflows/MSVC%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-cyclonedds/actions?query=workflow%3A"MSVC+Conan")
-
+[![Apple-Clang Conan](https://github.com/sintef-ocean/conan-cyclonedds/workflows/Apple-Clang%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-cyclonedds/actions?query=workflow%3A"Apple-Clang+Conan")
 
 [Conan.io](https://conan.io) recipe for [cyclonedds](https://cyclonedds.io/).
 

@@ -35,7 +35,7 @@ jobs:
       - name: Configure Conan
         run: |
           conan remote add sintef ${CONAN_UPLOAD}
-          consn config set general.revisions_enabled=1
+          conan config set general.revisions_enabled=1
       - name: Conan create
         run: |
           conan create -s build_type=${{ matrix.build_type }} \
