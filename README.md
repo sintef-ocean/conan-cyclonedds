@@ -21,7 +21,7 @@ The package is usually consumed using the `conan install` command or a *conanfil
 
    ```
    [requires]
-   cyclonedds/[>=0.8.2]@sintef/stable
+   cyclonedds/[>=0.10.2]@sintef/stable
 
    [options]
    None
@@ -36,7 +36,7 @@ The package is usually consumed using the `conan install` command or a *conanfil
 
    Insert into your *CMakeLists.txt* something like the following lines:
    ```cmake
-   cmake_minimum_required(VERSION 3.13)
+   cmake_minimum_required(VERSION 3.16)
    project(TheProject CXX)
 
    include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
@@ -67,8 +67,8 @@ with_lifespan | [True, False] | True
 with_network_partitions | [True, False] | True
 with_security | [True, False] | True
 with_source_specific_multicast | [True, False] | True
-with_topic_discovery | [True, False] | False
-with_type_discovery | [True, False] | False
+with_topic_discovery | [True, False] | True
+with_type_discovery | [True, False] | True
 with_doc | [True, False] | False
 with_examples | [True, False] | False
 with_tests | [True, False] | False
