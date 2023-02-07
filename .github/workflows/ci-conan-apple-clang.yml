@@ -23,7 +23,7 @@ jobs:
         os: [macos-11]
         version: [0.8.2, 0.10.2]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install prerequisites
         run: |
           pip3 install --upgrade setuptools pip requests
